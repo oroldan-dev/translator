@@ -1,5 +1,5 @@
-eq(x_1,x_k+1) {
-    z_1 <- monus(1,mas(monus(x_1, x_k+1), monus(x_k+1, x_1)))
+eq(x_1,x_2) {
+    z_1 <- monus(1, mas(monus(x_1, x_2), monus(x_2, x_1)))
 
     return z_1
 }

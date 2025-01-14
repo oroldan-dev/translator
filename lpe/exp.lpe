@@ -1,13 +1,12 @@
-exp(x_1,x_k+1) {
-    z_1 <- x_1
-    aux <- x_k+1
-    clear x_k+1
+exp(x_1,x_2) {
+    z_1 <- 1
+    aux <- x_2
+    clear x_2
 
     while(aux != 0) {
-      x_k+2 <- z_1
-      z_1 <- mult(x_1, x_k+2)
-      incr(z_1)
-      incr(x_k+1)
+      x_3 <- z_1
+      z_1 <- mult(x_1, x_3)
+      incr(x_2)
       decr(aux)
     }
 

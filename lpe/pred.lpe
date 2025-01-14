@@ -1,0 +1,11 @@
+pred(x_1) {
+    aux <- x_1
+    z_1 <- x_1 
+
+    while(aux != 0) {
+      decr(z_1)
+      return z_1
+    }
+
+    return z_1
+}

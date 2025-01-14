@@ -1,13 +1,9 @@
 fac(x_1) {
-    z_1 <- x_1
+    z_1 <- 1
     aux <- x_1
-    clear x_1
 
     while(aux != 0) {
-      x_k+1 <- z_1
-      z_1 <- mult(x_1, x_k+2)
-      incr(z_1)
-      incr(x_k+1)
+      z_1 <- mult(z_1, aux)
       decr(aux)
     }
 
