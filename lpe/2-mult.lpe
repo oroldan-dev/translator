@@ -1,0 +1,15 @@
+mult(x_1,x_k+1) {
+    z_1 <- x_1
+    aux <- x_k+1
+    clear x_k+1
+
+    while(aux != 0) {
+      x_k+2 <- z_1
+      z_1 <- mas(x_1, x_k+2)
+      incr(z_1)
+      incr(x_k+1)
+      decr(aux)
+    }
+
+    return z_1
+}

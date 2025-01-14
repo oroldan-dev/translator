@@ -1,0 +1,15 @@
+div(x_1,x_k+1) {
+    clear z_1
+    aux <- x_1
+    clear x_1
+
+    while(aux != 0) {
+      x_k+2 <- z_1
+      z_1 <- monus(mas(x_1, 1), mas(mult(aux, x_k+1), x_k+1))
+      incr(z_1)
+      incr(x_k+1)
+      decr(aux)
+    }
+
+    return z_1
+}

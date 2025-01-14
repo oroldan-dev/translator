@@ -1,0 +1,15 @@
+mas(x_1,x_2) {
+    z_1 <- x_1
+    aux <- x_2
+    clear x_2
+
+    while aux!=0 {
+      x_3 <- z_1
+      z_1 <- x_3
+      incr(z_1)
+      incr(x_2)
+      decr(aux)
+    }
+
+    return z_1
+}
