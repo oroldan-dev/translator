@@ -51,7 +51,7 @@ import { mult } from '../output/mult.js';
       const params = line.match(/\((.*?)\)/)?.[1];
       return `${importsToAdd}
 
-      export function ${funcName} (${params}) {`;
+export function ${funcName} (${params}) {`;
     }
 
     if (line === '}') {
@@ -65,34 +65,34 @@ import { mult } from '../output/mult.js';
     if (line.startsWith('clear')) {
       const variable = line.split(' ')[1];
       declaredVariables.add(variable);
-      return `${variable} = 0; `;
+      return `  ${variable} = 0 `;
     }
     if (line.includes('<-')) {
       const [left, right] = line.split('<-').map(s => s.trim());
       if (insideFunction && !declaredVariables.has(left)) {
         declaredVariables.add(left);
-        return `let ${left} = ${right}; `;
+        return `  let ${left} = ${right} `;
       }
-      return `${left} = ${right}; `;
+      return `  ${left} = ${right} `;
     }
     if (line.startsWith('while')) {
       const condition = line.replace('while', '').replace("}", " ").replace("{", " ").replace('!=', '!==').trim();
-      return `while (${condition}) {
+      return `  while (${condition}) {
     `;
     }
     if (line.startsWith('incr')) {
       const variable = line.match(/\((.*?)\)/)?.[1];
-      if (variable) return `${variable} ++; `;
+      if (variable) return `  ${variable}++ `;
     }
     if (line.startsWith('decr')) {
       const variable = line.match(/\((.*?)\)/)?.[1];
-      if (variable) return `${variable} --; `;
+      if (variable) return `  ${variable}-- `;
     }
-    if (line.startsWith('return')) {
+    if (line.startsWith(' return')) {
       const variable = line.split(' ')[1];
-      return `return ${variable}; `;
+      return `  return ${variable} `;
     }
-    return line;
+    return "  " + line;
   });
 
   const translatedCode = translatedLines.join('\n');
