@@ -5,6 +5,7 @@ import { fac } from '../output/fac.js'
 import { monus } from '../output/monus.js'
 import { eq } from '../output/eq.js'
 import { div } from '../output/div.js'
+import { coc } from '../output/coc.js'
 
 console.log("Test")
 console.log("funcion mas", mas(3, 5))
@@ -14,4 +15,6 @@ console.log("funcion fac", fac(4))
 console.log("funcion monus", monus(14, 15))
 console.log("funcion eq", eq(15, 15))
 console.log("funcion eq", eq(1, 15))
-console.log("funcion div", div(16, 3))
+console.log("funcion div", div(17, 2))
+console.log("funcion coc", coc(17, 2))
+console.log("funcion coc entre cero", coc(17, 0))

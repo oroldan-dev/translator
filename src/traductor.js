@@ -27,8 +27,13 @@ import { mas } from '../output/mas.js';`
       importsToAdd = `import { monus } from '../output/monus.js';
 import { mas } from '../output/mas.js';
 import { mult } from '../output/mult.js'; 
-`
-    }
+`}
+    else if (line.startsWith('coc(')) {
+      importsToAdd = `import { eq } from '../output/eq.js';
+import { mas } from '../output/mas.js';
+import { mult } from '../output/mult.js'; 
+`}
+
 
     if (
       line.startsWith('mas(')
@@ -39,6 +44,7 @@ import { mult } from '../output/mult.js';
       || line.startsWith('pred(')
       || line.startsWith('eq(')
       || line.startsWith('div(')
+      || line.startsWith('coc(')
     ) {
       insideFunction = true;
       const funcName = line.split('(')[0];
