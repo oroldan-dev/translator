@@ -1,23 +1,21 @@
 import * as fs from 'fs';
 
-// Function to translate Essential code to JavaScript
 function translateEssentialToJS(inputFile, outputFile) {
-  // Read the input file
   const essentialCode = fs.readFileSync(inputFile, 'utf-8');
 
-  // Split code into lines and process each one
+  const importsToAdd = `import { mas } from '../output/mas.js';`
   const lines = essentialCode.split('\n');
-  let insideFunction = false; // Track if inside a function definition
-  const declaredVariables = new Set(); // Track declared variables
+  let insideFunction = false;
+  const declaredVariables = new Set();
   const translatedLines = lines.map(line => {
-    // Remove extra spaces
     line = line.trim();
 
     if (line.startsWith('mas(') || line.startsWith('mult(')) {
       insideFunction = true;
       const funcName = line.split('(')[0];
       const params = line.match(/\((.*?)\)/)?.[1];
-      return `export function ${funcName}(${params}) {`;
+      return `${importsToAdd} 
+export function ${funcName}(${params}) {`;
     }
 
     // End of function
@@ -43,7 +41,6 @@ function translateEssentialToJS(inputFile, outputFile) {
       return `${left} = ${right};`;
     }
     if (line.startsWith('while')) {
-      // Correct the while format without adding extra braces
       const condition = line.replace('while', '').replace("}", " ").replace("{", " ").replace('!=', '!==').trim();
       return `while (${condition}) {`;
     }
@@ -59,16 +56,14 @@ function translateEssentialToJS(inputFile, outputFile) {
       const variable = line.split(' ')[1];
       return `return ${variable};`;
     }
-    return line; // Return unmodified line if no match
+    return line;
   });
 
-  // Join the translated lines and write to output file
   const translatedCode = translatedLines.join('\n');
   fs.writeFileSync(outputFile, translatedCode, 'utf-8');
   console.log(`Translation complete. Code saved to ${outputFile}`);
 }
 
-// Read command-line arguments
 const args = process.argv.slice(2);
 if (args.length < 1) {
   console.error('Usage: node traductor.js <input_file>');
@@ -78,4 +73,11 @@ if (args.length < 1) {
 const inputFile = args[0];
 const functionName = inputFile.split('\\').pop().split('.').shift();
 const outputFile = `output/${functionName}.js`;
+
+// Remove the file if it exists
+if (fs.existsSync(outputFile)) {
+  fs.unlinkSync(outputFile);
+  console.log(`Removed existing file: ${outputFile}`);
+}
+
 translateEssentialToJS(inputFile, outputFile);
